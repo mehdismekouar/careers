@@ -1,0 +1,1 @@
+<a {{ $attributes(["class" => "hover:bg-gray-600 py-3 px-10 w-full text-right"]) }} >{{ $slot }}</a>
