@@ -5,13 +5,13 @@
     @if ($featured)
         <span class="absolute rounded-xl w-3 h-3 -top-1 -right-1 bg-blue-600"></span>
     @endif
-    <div class="text-sm text-gray-400 flex justify-between gap-x-2">
+    <div class="text-sm text-gray-500 flex justify-between gap-x-2">
         <span>{{ $job->employer->name }}</span>
         <x-employer-logo :image="basename($job->employer->logo)" />
     </div>
     <div class="font-bold">
         <a href="{{ $job->url }}" target="_blank">
-            <h3 class="text-lg group-hover:text-blue-600 transition duration-300">{{ $job->title }}</h3>
+            <h3 class="text-lg group-hover:text-blue-600 transition duration-150">{{ $job->title }}</h3>
         </a>
         <p class="text-sm text-gray-400 mt-2">${{ $job->salary }} USD</p>
         <p class="mt-2 flex justify-center">
@@ -32,12 +32,12 @@
     </div>
     @can('view', $job->employer)
         <x-forms.form id="delete-job-{{ $job->id }}" method="DELETE" action="/jobs/{{ $job->id }}">
-            <div class="mt-4 flex text-2xs">
-                <div class="bg-gray-600 hover:bg-gray-500 transition-colors duration-300 rounded-l p-1 w-12">
+            <div class="mt-4 flex text-xs text-white">
+                <div class="bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-150 rounded-l p-1 w-12">
                     <a href="/jobs/{{ $job->id }}/edit" class="">Edit</a>
                 </div>
                 <x-forms.small-button type="submit" form="delete-job-{{ $job->id }}"
-                    class="bg-red-900 hover:bg-red-700  transition-colors duration-300 w-12 p-1 rounded-r">Delete
+                    class="bg-red-700 hover:bg-red-900 dark:bg-red-900 dark:hover:bg-red-700  transition-colors duration-150 w-12 p-1 rounded-r">Delete
                 </x-forms.small-button>
             </div>
         </x-forms.form>

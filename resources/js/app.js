@@ -8,6 +8,43 @@ const hamburger = document.getElementById('hamburger');
 const cross = document.getElementById('cross');
 const container = document.getElementById('container');
 const overlay = document.getElementById('overlay');
+const switch_button = document.getElementById('switch');
+const light = document.getElementById('light');
+const dark = document.getElementById('dark');
+
+var mode;
+
+if (!('theme' in localStorage) || localStorage.theme === 'light') {
+    mode = 'dark';
+} else {
+    mode = 'light';
+}
+
+function switch_mode(current_mode) {
+    if (current_mode == 'light') {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        dark.classList.add('hidden');
+        light.classList.remove('hidden');
+        
+        localStorage.theme = 'dark';
+        mode = 'dark';
+    } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        dark.classList.remove('hidden');
+        light.classList.add('hidden');
+
+        localStorage.theme = 'light';
+        mode = 'light';
+    }
+}
+
+switch_mode(mode);
+
+switch_button.addEventListener('click', function () {
+    switch_mode(mode);
+});
 
 var state = 'off';
 

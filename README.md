@@ -6,6 +6,7 @@ I added the following features
 
 - Better dummy company logo seeding
 - Better job tag seeding to avoid duplication errors
+- Switch between dark and light mode
 - Mobile sliding menu responsiveness
 - Search validation
 - Profile page with profile editing

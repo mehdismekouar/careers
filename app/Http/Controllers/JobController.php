@@ -21,13 +21,15 @@ class JobController extends Controller
     {
 
         return view('jobs.index', [
-            'jobs' => Job::latest()->with(['employer', 'tags'])
-                                    ->where(['featured' => false])
-                                    ->paginate(12),
+            'jobs' => Job::latest()
+                            ->with(['employer', 'tags'])
+                            ->where(['featured' => false])
+                            ->paginate(12),
 
-            'featured' => Job::latest()->with(['employer', 'tags'])
-                                        ->where(['featured' => true])
-                                        ->get(),
+            'featured' => Job::latest()
+                            ->with(['employer', 'tags'])
+                            ->where(['featured' => true])
+                            ->get(),
                                         
             'tags' => Tag::all(),
         ]);
@@ -60,7 +62,7 @@ class JobController extends Controller
         $job = Auth::user()->employer->jobs()->create(Arr::except($validated, 'tags'));
 
         $tags = request()->tags ?
-            array_unique(array_map('trim', explode(',', request()->tags))) : false;
+            array_unique(array_filter(explode(',', request()->tags), fn ($value) => !empty(trim($value)))) : false;
 
         $job->tag($tags);
 
@@ -110,7 +112,7 @@ class JobController extends Controller
         $job->detachTags();
 
         $tags = request()->tags ?
-            array_unique(array_map('trim', explode(',', request()->tags))) : false;
+            array_unique(array_filter(explode(',', request()->tags), fn ($value) => !empty(trim($value)))) : false;
 
         $job->tag($tags);
 
@@ -125,7 +127,6 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        // dd($job);
         $job->delete();
 
         return back();

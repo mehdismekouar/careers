@@ -8,8 +8,8 @@
         <x-forms.input label="Confirm password" name="password_confirmation" type="password" />
         <x-forms.divider />
 
-        <x-forms.input label="Employer name" name="employer" :value="$employer->name" />
-        <x-forms.input label="Employer logo" name="logo" type="file" />
+        <x-forms.input label="Company name" name="employer" :value="$employer->name" />
+        <x-forms.input label="Company logo" name="logo" type="file" />
         <x-forms.button>Update account</x-forms.button>
     </x-forms.form>
 </x-layout>

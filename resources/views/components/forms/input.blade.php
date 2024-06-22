@@ -5,7 +5,7 @@
         'type' => 'text',
         'id' => $name,
         'name' => $name,
-        'class' => $replace ? '' : 'rounded-xl bg-white/10 border border-white/10 px-5 py-4 w-full',
+        'class' => $replace ? '' : 'rounded-xl bg-gray-50 dark:bg-white/10 border dark:border-white/10 px-5 py-4 w-full',
         'value' => old($name, $value) ?? null
     ];
 @endphp
