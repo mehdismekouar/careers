@@ -29,30 +29,37 @@
             </a>
 
             <!-- Dark mode switch menu -->
-            <div class="rounded-full bg-gray-100 dark:bg-gray-700 p-2 flex items-center cursor-pointer ml-5 mr-auto" id="switch">
-                <svg id="light" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-                  </svg>
-                  <svg id="dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-                  </svg>
-                  
+            <div class="rounded-full bg-gray-100 dark:bg-gray-700 p-1.5 flex items-center cursor-pointer ml-5 mr-auto"
+                id="switch">
+                <svg id="light" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+                <svg id="dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="hidden size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                </svg>
+
             </div>
 
             <!-- Desktop menu -->
             <div class="ml-2 inline-flex justify-end items-center gap-x-1 text-lg max-sm:hidden md:block">
                 @auth
-                    @if (!Route::is('profile'))
+                    @if (!Route::is('employer.profile') && !Auth::user()->is_admin)
                         <x-nav-link href="/employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
+                    @elseif (!Route::is('employer.profile') && !Route::is('user.profile'))
+                        <x-nav-link href="/user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
                     @endif
-                    @if (!Route::is('employer.jobs'))
+                    @if (!Route::is('employer.jobs') && !Auth::user()->is_admin)
                         <x-nav-link href="/jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-nav-link>
                     @endif
-                    @if (!Route::is('jobs.create'))
+                    @if (!Route::is('jobs.create') && !Auth::user()->is_admin)
                         <x-nav-link href="/jobs/create">New job</x-nav-link>
                     @endif
-                    <x-forms.small-button class="hover:bg-gray-600 hover:text-white py-1 px-3 rounded-xl" :replace="true" type="submit"
-                        form="logout">Logout</x-forms.button>
+                    <x-forms.small-button class="hover:bg-gray-600 hover:text-white py-1 px-3 rounded-xl" :replace="true"
+                        type="submit" form="logout">Logout</x-forms.button>
                     @endauth
                     @guest
                         @if (!Route::is('login'))
@@ -86,20 +93,22 @@
     <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-9"></div>
 
     <!-- Mobile Menu (Hidden by default) -->
-    <div class="sm:hidden pt-10 fixed flex flex-col h-screen top-0 left-[calc(-100vw+150px)] w-[calc(100vw-150px)] bg-gray-50 dark:bg-black/95 z-10 space-y-1 transition-all duration-[300ms] text-lg"
+    <div class="sm:hidden pt-10 fixed flex flex-col h-screen top-0 left-[calc(-100vw+150px)] w-[calc(100vw-150px)] bg-gray-50 dark:bg-black/95 z-10 space-y-1 transition-all duration-[200ms] text-lg"
         id="mobile-menu">
         @auth
-            @if (!Route::is('profile'))
-                <x-mobile-nav-link href="/employer/{{ Auth::user()->employer->id }}/edit">Profile</x-mobile-nav-link>
+            @if (!Route::is('employer.profile') && !Auth::user()->is_admin)
+                <x-mobile-nav-link href="/employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
+            @elseif (!Route::is('employer.profile'))
+                <x-mobile-nav-link href="/user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
             @endif
-            @if (!Route::is('employer.jobs'))
-                <x-mobile-nav-link href="/jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-mobile-nav-link>
+            @if (!Route::is('employer.jobs') && !Auth::user()->is_admin)
+                <x-mobile-nav-link href="/jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-nav-link>
             @endif
-            @if (!Route::is('jobs.create'))
-                <x-mobile-nav-link href="/jobs/create">New job</x-mobile-nav-link>
+            @if (!Route::is('jobs.create') && !Auth::user()->is_admin)
+                <x-mobile-nav-link href="/jobs/create">New job</x-nav-link>
             @endif
-            <x-forms.small-button class="hover:bg-gray-600 hover:text-white py-3 px-10 text-right w-full" :replace="true" type="submit"
-                form="logout">Logout</x-forms.button>
+            <x-forms.small-button class="hover:bg-gray-600 hover:text-white py-3 px-10 text-right w-full" :replace="true"
+                type="submit" form="logout">Logout</x-forms.button>
             @endauth
             @guest
                 @if (!Route::is('login'))

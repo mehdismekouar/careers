@@ -18,8 +18,9 @@ class AllSeeder extends Seeder
     public function run(): void
     {
 
-        Storage::deleteDirectory('logos');
-        Storage::makeDirectory('logos');
+        if (!Storage::exists('logos')):
+            Storage::makeDirectory('logos');
+        endif;
 
         Employer::factory(20)->create();
 

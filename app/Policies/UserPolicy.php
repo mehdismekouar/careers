@@ -2,17 +2,18 @@
 
 namespace App\Policies;
 
-use App\Models\Job;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Auth;
 
-class JobPolicy
+class UserPolicy
 {
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Job $job): bool
+    public function update(User $user, user $model): bool
     {
-        return $user->is_admin ?: $user->id === $job->employer->user->id;
+        return $model->id === $user->id;
     }
+
 }
