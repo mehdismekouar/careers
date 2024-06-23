@@ -30,19 +30,19 @@ class UserController extends Controller
             'email' => 'required|email|max:254|unique:users,email,' . $user->id,
         ];
 
-        if (!empty(request()->password) || !empty(request()->password_confirmation)) {
+        if (!empty($request->password) || !empty($request->password_confirmation)) {
             $validationArray['password'] = ['required', 'confirmed', Password::defaults()];
         }
 
-        $validatedUser = request()->validate($validationArray);
+        $validatedUser = $request->validate($validationArray);
 
         $userFields = [
-            'name' => request()->name,
-            'email' => request()->email,
+            'name' => $request->name,
+            'email' => $request->email,
         ];
 
-        if (!empty(request()->password)) {
-            $userFields['password'] = request()->password;
+        if (!empty($request->password)) {
+            $userFields['password'] = $request->password;
         }
 
         $user->update($userFields);

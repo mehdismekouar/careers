@@ -29,7 +29,7 @@ class EmployerController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = request()->validate([
+        $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|email|max:254|unique:users,email',
             'password' => ['required', 'confirmed', Password::defaults()],
@@ -37,7 +37,7 @@ class EmployerController extends Controller
             'logo' => ['required', 'mimes:png,jpg,webp,svg', 'dimensions:min_width=100,min_height=100', 'max:2048'],
         ]);
 
-        $logoPath = request()->logo->store('logos');
+        $logoPath = $request->logo->store('logos');
 
         $user = User::create(Arr::only($validated, ['name', 'email', 'password']));
 
@@ -92,7 +92,7 @@ class EmployerController extends Controller
         }
     
         if (!empty($request->password)) {
-            $userFields['password'] = bcrypt($request->password);
+            $userFields['password'] = $request->password;
         }
     
         $employer->update($employerFields);

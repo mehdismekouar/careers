@@ -46,7 +46,7 @@
                     @endforeach
                 </div>
                 <div class="pt-5">
-                    {{ $jobs->links() }}
+                    {{ $jobs->onEachSide(6)->links() }}
                 </div>
             </section>
             @endif

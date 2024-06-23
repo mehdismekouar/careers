@@ -8,7 +8,7 @@ const hamburger = document.getElementById('hamburger');
 const cross = document.getElementById('cross');
 const container = document.getElementById('container');
 const overlay = document.getElementById('overlay');
-const switch_button = document.getElementById('switch');
+const switchButton = document.getElementById('switch');
 const light = document.getElementById('light');
 const dark = document.getElementById('dark');
 
@@ -20,8 +20,8 @@ if (!('theme' in localStorage) || localStorage.theme === 'light') {
     mode = 'light';
 }
 
-function switch_mode(current_mode) {
-    if (current_mode == 'light') {
+function switchMode(currentMode) {
+    if (currentMode == 'light') {
         document.documentElement.classList.remove('light');
         document.documentElement.classList.add('dark');
         dark.classList.add('hidden');
@@ -40,10 +40,10 @@ function switch_mode(current_mode) {
     }
 }
 
-switch_mode(mode);
+switchMode(mode);
 
-switch_button.addEventListener('click', function () {
-    switch_mode(mode);
+switchButton.addEventListener('click', function () {
+    switchMode(mode);
 });
 
 var state = 'off';

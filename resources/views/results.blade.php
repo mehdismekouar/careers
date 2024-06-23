@@ -7,7 +7,7 @@
             <x-job-card :$job featured="{{ $job->featured }}" />
         @endforeach
         <div class="pt-5">
-            {{ $jobs->links() }}
+            {{ $jobs->onEachSide(6)->links() }}
         </div>
         @else
             <p class="text-center text-xl">No results found for your search</p>
