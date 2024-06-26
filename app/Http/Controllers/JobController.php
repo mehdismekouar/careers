@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employer;
 use App\Models\Job;
-use Illuminate\Http\Request;
-use App\Http\Requests\StoreJobRequest;
-use App\Http\Requests\UpdateJobRequest;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
-use Auth;
 
 class JobController extends Controller
 {
@@ -22,15 +18,15 @@ class JobController extends Controller
 
         return view('jobs.index', [
             'jobs' => Job::latest()
-                            ->with(['employer', 'tags'])
-                            ->where(['featured' => false])
-                            ->paginate(12),
+                ->with(['employer', 'tags'])
+                ->where(['featured' => false])
+                ->paginate(12),
 
             'featured' => Job::latest()
-                            ->with(['employer', 'tags'])
-                            ->where(['featured' => true])
-                            ->get(),
-                                        
+                ->with(['employer', 'tags'])
+                ->where(['featured' => true])
+                ->get(),
+
             'tags' => Tag::all(),
         ]);
     }
@@ -59,14 +55,16 @@ class JobController extends Controller
 
         $validated['featured'] = request()->has('featured');
 
-        $job = Auth::user()->employer->jobs()->create(Arr::except($validated, 'tags'));
+        $job = $request->user()->employer->jobs()->create(Arr::except($validated, 'tags'));
 
         $tags = request()->tags ?
-            array_unique(array_map('trim', array_filter(explode(',', request()->tags), fn ($value) => !empty(trim($value))))) : false;
+            array_unique(array_map('trim', array_filter(explode(',', request()->tags), fn($value) => !empty (trim($value))))) : false;
 
         $job->tag($tags);
 
-        return redirect('/');
+        Tag::removeOrphans();
+
+        return redirect()->route('employer.jobs', ['employer' => $request->user()->employer->id]);
     }
 
     /**
@@ -88,7 +86,7 @@ class JobController extends Controller
 
         return view('jobs.edit', [
             'job' => $job,
-            'tags' => count($job->tags) ? implode(', ', $job->tags->pluck('name')->toArray()) : ''
+            'tags' => count($job->tags) ? implode(', ', $job->tags->pluck('name')->toArray()) : '',
         ]);
     }
 
@@ -112,14 +110,16 @@ class JobController extends Controller
         $job->detachTags();
 
         $tags = request()->tags ?
-            array_unique(array_map('trim', array_filter(explode(',', request()->tags), fn ($value) => !empty(trim($value))))) : false;
+            array_unique(array_map('trim', array_filter(explode(',', request()->tags), fn($value) => !empty (trim($value))))) : false;
 
         $job->tag($tags);
+
+        Tag::removeOrphans();
 
         $referralUrl = session()->get('referral_url');
         session()->forget('referral_url');
 
-        return redirect($referralUrl)->with('success', 'Update successful!');
+        return redirect($referralUrl);
     }
 
     /**
@@ -128,6 +128,8 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         $job->delete();
+
+        Tag::removeOrphans();
 
         return back();
     }

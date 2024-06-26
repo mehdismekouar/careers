@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
@@ -26,7 +26,7 @@ class SessionController extends Controller
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt($validated)) {
+        if (! Auth::attempt($validated)) {
             throw ValidationException::withMessages([
                 'email' => 'Credentials mismatch',
                 'password' => 'Credentials mismatch',
@@ -35,7 +35,7 @@ class SessionController extends Controller
 
         request()->session()->regenerate();
 
-        return redirect('/');
+        return redirect()->intended('/');
     }
 
     /**
@@ -43,7 +43,6 @@ class SessionController extends Controller
      */
     public function destroy()
     {
-        // dd(Auth::user());
         Auth::logout();
 
         return redirect('/');

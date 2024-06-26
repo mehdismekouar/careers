@@ -5,14 +5,12 @@ namespace Database\Factories;
 use App\Models\Job;
 use App\Models\JobTag;
 use App\Models\Tag;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Exception;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JobTag>
  */
-use Illuminate\Support\Facades\Log;
-
 class JobTagFactory extends Factory
 {
     public function definition(): array
@@ -38,7 +36,7 @@ class JobTagFactory extends Factory
                 ];
             } catch (\Illuminate\Database\QueryException $e) {
                 // Handle the exception if a duplicate entry is inserted
-                logger($randomJob . ' - ' . $randomTag . ' already exists.');
+                logger($randomJob.' - '.$randomTag.' already exists.');
                 $retries++;
             }
         }
@@ -46,5 +44,3 @@ class JobTagFactory extends Factory
         throw new Exception('Unable to find a unique job_id and tag_id pair after maximum retries.');
     }
 }
-
-

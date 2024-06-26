@@ -26,7 +26,7 @@ function switchMode(currentMode) {
         document.documentElement.classList.add('dark');
         dark.classList.add('hidden');
         light.classList.remove('hidden');
-        
+
         localStorage.theme = 'dark';
         mode = 'dark';
     } else {
@@ -52,7 +52,18 @@ function changeState(state) {
     menu.classList.toggle('translate-x-[calc(100vw-150px)]');
     hamburger.classList.toggle('hidden');
     cross.classList.toggle('hidden');
-    overlay.classList.toggle('hidden');
+
+    if (overlay.classList.contains('h-0')) {
+        overlay.classList.remove('h-0');
+        overlay.classList.add('opacity-100');
+    } else {
+        overlay.classList.remove('opacity-100');
+
+        setTimeout(() => {
+            overlay.classList.add('h-0');
+
+        }, 250);
+    }
 
     if (state == 'on') {
         return 'off';
@@ -62,12 +73,12 @@ function changeState(state) {
 }
 
 toggle.addEventListener('click', function (e) {
-    e.stopPropagation();
+    // e.stopPropagation();
     state = changeState(state);
 });
 
 overlay.addEventListener('click', function () {
-    if (state == 'on') {
-        state = changeState(state);
-    }
+    // if (state == 'on') {
+    state = changeState(state);
+    // }
 });

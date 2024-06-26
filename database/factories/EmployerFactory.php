@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Exception;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -19,7 +19,6 @@ class EmployerFactory extends Factory
      *
      * @return array<string, mixed>
      */
-
     private static function getInitials($string): string
     {
         $words = explode(' ', $string);
@@ -43,12 +42,12 @@ class EmployerFactory extends Factory
             $word = static::getInitials($company);
             $colors = ['yellow', 'orange', 'lightblue', 'lighgray', 'lightgreen', 'beige', 'azure', 'burlywood', 'cornsilk', 'darkkhaki', 'darksalmon', 'gold', 'ghostwhite', 'honeydew'];
 
-            $response = Http::get('https://placehold.co/100/' . $colors[array_rand($colors)] . '/black/svg?text=' . $word);
+            $response = Http::get('https://placehold.co/100/'.$colors[array_rand($colors)].'/black/svg?text='.$word);
 
             if ($response->successful()) {
                 $imageContent = $response->body();
-                $logo = Str::random(32) . '.svg';
-                $path = 'logos/' . $logo;
+                $logo = Str::random(32).'.svg';
+                $path = 'logos/'.$logo;
 
                 Storage::put($path, $imageContent);
 
@@ -75,7 +74,3 @@ class EmployerFactory extends Factory
         throw new Exception('Unable to download a logo.');
     }
 }
-
-
-
-

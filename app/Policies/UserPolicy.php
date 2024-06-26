@@ -3,8 +3,6 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
-use Auth;
 
 class UserPolicy
 {
@@ -15,5 +13,4 @@ class UserPolicy
     {
         return $model->id === $user->id;
     }
-
 }

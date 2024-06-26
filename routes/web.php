@@ -1,15 +1,13 @@
 <?php
 
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\TagController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
-use App\Models\JobTag;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/storage/logos/{filename}', [FileController::class, 'getFile']);
 
@@ -32,7 +30,7 @@ Route::get('/search', SearchController::class);
 Route::get('/tags/{tag:name}', TagController::class);
 
 Route::controller(EmployerController::class)->group(function () {
-    Route::get('/jobs/employer/{employer}', 'index')->middleware('auth')->can('view', 'employer')->name('employer.jobs');
+    Route::get('/jobs/employer/{employer}', 'index')->name('employer.jobs');
     Route::get('/register', 'create')->name('register');
     Route::post('/register', 'store');
     Route::get('/employer/{employer}/edit', 'edit')->middleware('auth')->can('view', 'employer')->name('employer.profile');

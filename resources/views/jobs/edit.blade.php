@@ -13,11 +13,11 @@
         </x-forms.select>
 
         <x-forms.input label="URL" name="url" placeholder="" :value="$job->url" />
-
         <x-forms.checkbox label="Featured" name="featured" placeholder="" :value="$job->featured" />
         <x-forms.divider />
 
         <x-forms.input label="Tags" name="tags" placeholder="" :value="$tags" />
+        <input type="hidden" name="posting" value="true" />
         <x-forms.button type="submit">Update</x-forms.button>
     </x-forms.form>
 </x-layout>

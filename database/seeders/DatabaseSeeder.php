@@ -1,11 +1,13 @@
 <?php
 
 namespace Database\Seeders;
-use Database\Seeders\AllSeeder;
-
-use App\Models\User;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Employer;
+use App\Models\Job;
+use App\Models\Tag;
+use App\Models\JobTag;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,13 +16,40 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $seed = new AllSeeder;
-        $seed->run();
-        
-        /* User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'is_Admin' => true
-        ]); */
+        $numbers = [
+            'employers' => 20,
+            'jobs' => 60,
+            'featured' => 4,
+            'tags' => 20,
+            'relations' => 100,
+        ];
+
+        if (! Storage::exists('logos')) {
+            Storage::makeDirectory('logos');
+        }
+
+        Employer::factory($numbers['employers'])->create();
+
+        for ($i = 0; $i < $numbers['jobs']; $i++) {
+
+            Job::factory()->create([
+                'employer_id' => Employer::inRandomOrder()->first()->id,
+                'featured' => false,
+            ]);
+        }
+
+        for ($i = 0; $i < $numbers['featured']; $i++) {
+
+            Job::factory()->create([
+                'employer_id' => Employer::inRandomOrder()->first()->id,
+                'featured' => true,
+            ]);
+        }
+
+        Tag::factory($numbers['tags'])->create();
+        Tag::removeDuplicates();
+
+        JobTag::factory($numbers['relations'])->create();
+        JobTag::removeDuplicates();
     }
 }

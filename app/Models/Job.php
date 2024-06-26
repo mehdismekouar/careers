@@ -19,7 +19,7 @@ class Job extends Model
         if ($names) {
             foreach ($names as $name) {
                 $tag = Tag::firstOrCreate(['name' => $name]);
-    
+
                 $this->tags()->attach($tag);
             }
         }

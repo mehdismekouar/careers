@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function __invoke(Request $request) {
-        // dd(request()->all());
+    public function __invoke(Request $request)
+    {
         $validated = request()->validate([
-            'search' => 'required|min:3'
+            'search' => 'required|min:3',
         ]);
 
-        $jobs = Job::where('title', 'LIKE', '%'. $request['search'] .'%')->with('employer')->with('tags')->paginate(12);
+        $jobs = Job::where('title', 'LIKE', '%'.$request['search'].'%')->with('employer')->with('tags')->paginate(12);
 
-        return view('results', ['jobs' => $jobs]);
+        return view('results', ['jobs' => $jobs, 'title' => 'Search: '.$request['search']]);
     }
 }

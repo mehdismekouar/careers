@@ -21,6 +21,12 @@ I added the following features
 
 <br />
 
+# Demo
+
+[https://careers.mehdimekouar.com](https://careers.mehdimekouar.com)
+
+<br />
+
 # Usage
 
 After downloading the files, get inside "careers" folder and run the following 
@@ -70,7 +76,7 @@ Run HTTP server
 ```
 php artisan serve
 ```
-**Note:** your app will be accessible at **localhost:8000** or **127.0.0.1:8000**
+**Note:** your app will be accessible at **localhost:8000**
 
 Admin login: admin@example.com | password
 

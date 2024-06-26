@@ -6,13 +6,13 @@
         <span class="absolute rounded-xl w-3 h-3 -top-1 -right-1 bg-blue-600"></span>
     @endif
     <div class="text-sm text-gray-500 flex justify-between gap-x-2">
-        <span>{{ $job->employer->name }}</span>
+        <a class="group-hover:text-blue-600 hover:underline transition duration-150"
+            href="{{ route('employer.jobs', ['employer' => $job->employer->id]) }}">{{ $job->employer->name }}</a>
         <x-employer-logo :image="basename($job->employer->logo)" />
     </div>
     <div class="font-bold">
-        <a href="{{ $job->url }}" target="_blank">
-            <h3 class="text-lg group-hover:text-blue-600 transition duration-150">{{ $job->title }}</h3>
-        </a>
+        <a href="{{ $job->url }}" target="_blank"
+            class="text-lg group-hover:text-blue-600 hover:underline transition duration-150">{{ $job->title }}</a>
         <p class="text-sm text-gray-400 mt-2">${{ $job->salary }} USD</p>
         <p class="mt-2 flex justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -33,7 +33,8 @@
     @can('view', $job->employer)
         <x-forms.form id="delete-job-{{ $job->id }}" method="DELETE" action="/jobs/{{ $job->id }}">
             <div class="mt-4 flex text-xs text-white">
-                <div class="bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-150 rounded-l p-1 w-12">
+                <div
+                    class="bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-150 rounded-l p-1 w-12">
                     <a href="/jobs/{{ $job->id }}/edit" class="">Edit</a>
                 </div>
                 <x-forms.small-button type="submit" form="delete-job-{{ $job->id }}"

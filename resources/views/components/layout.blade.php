@@ -18,7 +18,7 @@
     <x-forms.form id="logout" method="POST" action="/logout" class="hidden" />
     <div class="px-10" id="container">
         <nav class="flex items-center justify-between py-4 border-white/10">
-            <a href="/" class="flex items-center">
+            <a href="/" class="flex items-center font-semibold">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-7">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -90,16 +90,16 @@
     </div>
 
     <!-- Overlay -->
-    <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-9"></div>
+    <div id="overlay" class="fixed h-0 inset-0 bg-black/50 z-9 transition-all duration-[250ms] opacity-0"></div>
 
     <!-- Mobile Menu (Hidden by default) -->
-    <div class="sm:hidden pt-10 fixed flex flex-col h-screen top-0 left-[calc(-100vw+150px)] w-[calc(100vw-150px)] bg-gray-50 dark:bg-black/95 z-10 space-y-1 transition-all duration-[200ms] text-lg"
+    <div class="sm:hidden pt-10 fixed flex flex-col h-screen top-0 left-[calc(-100vw+150px)] w-[calc(100vw-150px)] bg-gray-50 dark:bg-black/95 z-10 space-y-1 transition-all duration-[250ms] text-lg"
         id="mobile-menu">
         @auth
             @if (!Route::is('employer.profile') && !Auth::user()->is_admin)
                 <x-mobile-nav-link href="/employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
-            @elseif (!Route::is('employer.profile'))
-                <x-mobile-nav-link href="/user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
+                @elseif (!Route::is('employer.profile'))
+                    <x-mobile-nav-link href="/user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
             @endif
             @if (!Route::is('employer.jobs') && !Auth::user()->is_admin)
                 <x-mobile-nav-link href="/jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-nav-link>

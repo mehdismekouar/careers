@@ -1,10 +1,10 @@
 <?php
 
+use App\Models\Job;
+use App\Models\Tag;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Job;
-use App\Models\Tag;
 
 return new class extends Migration
 {
@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('job_tag', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Job::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete(); 
+            $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
-            // $table->unique(['job_id','tag_id']);
         });
     }
 
