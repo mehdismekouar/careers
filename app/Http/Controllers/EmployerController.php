@@ -14,7 +14,12 @@ class EmployerController extends Controller
 {
     public function index(Employer $employer)
     {
-        return view('results', ['jobs' => $employer->jobs()->with(['employer', 'tags'])->paginate(12), 'title' => 'Company: '.$employer->name]);
+        return view('results', [
+            'jobs' => $employer->jobs()
+                ->with(['employer', 'tags'])
+                ->paginate(12),
+            'title' => 'Company: ' . $employer->name
+        ]);
     }
 
     public function create()
@@ -46,12 +51,13 @@ class EmployerController extends Controller
 
         Auth::login($user);
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Account created successfully');
+        ;
     }
 
     public function edit(Employer $employer)
     {
-        if (! session()->has('referral_url')) {
+        if (!session()->has('referral_url')) {
             session()->put('referral_url', url()->previous());
         }
 
@@ -62,11 +68,11 @@ class EmployerController extends Controller
     {
         $validationArray = [
             'name' => 'required',
-            'email' => 'required|email|max:254|unique:users,email,'.$employer->user->id,
+            'email' => 'required|email|max:254|unique:users,email,' . $employer->user->id,
             'employer' => 'required|min:5',
         ];
 
-        if (! empty($request->password) || ! empty($request->password_confirmation)) {
+        if (!empty($request->password) || !empty($request->password_confirmation)) {
             $validationArray['password'] = ['required', 'confirmed', Password::defaults()];
         }
 
@@ -85,11 +91,11 @@ class EmployerController extends Controller
 
         if ($request->hasFile('logo')) {
             $logoPath = $request->logo->store('logos');
-            Storage::delete(['file', 'logos/'.$employer->logo]);
+            Storage::delete(['file', 'logos/' . $employer->logo]);
             $employerFields['logo'] = basename($logoPath);
         }
 
-        if (! empty($request->password)) {
+        if (!empty($request->password)) {
             $userFields['password'] = $request->password;
         }
 
@@ -99,6 +105,7 @@ class EmployerController extends Controller
         $referralUrl = session()->get('referral_url');
         session()->forget('referral_url');
 
-        return redirect($referralUrl);
+        return redirect($referralUrl)->with('success', 'Account updated successfully');
+        ;
     }
 }

@@ -64,7 +64,7 @@ class JobController extends Controller
 
         Tag::removeOrphans();
 
-        return redirect()->route('employer.jobs', ['employer' => $request->user()->employer->id]);
+        return redirect()->route('employer.jobs', ['employer' => $request->user()->employer->id])->with('success', 'Job created successfully');
     }
 
     /**
@@ -119,7 +119,7 @@ class JobController extends Controller
         $referralUrl = session()->get('referral_url');
         session()->forget('referral_url');
 
-        return redirect($referralUrl);
+        return redirect($referralUrl)->with('success', 'Job updated successfully');
     }
 
     /**
@@ -131,6 +131,6 @@ class JobController extends Controller
 
         Tag::removeOrphans();
 
-        return back();
+        return back()->with('success', 'Job deleted successfully');
     }
 }

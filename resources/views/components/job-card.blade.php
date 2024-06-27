@@ -1,7 +1,7 @@
 @props(['job', 'featured' => false])
 
 <x-panel
-    class="relative flex-grow-0 flex-shrink-0 w-full sm:w-[calc(50%-.75rem)] lg:w-[calc(33.33%-1rem)] min-h-[250px]">
+    class="relative flex-grow-0 flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.33%-1rem)] min-h-[250px]">
     @if ($featured)
         <span class="absolute rounded-xl w-3 h-3 -top-1 -right-1 bg-blue-600"></span>
     @endif

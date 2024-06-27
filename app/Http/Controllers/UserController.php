@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function edit(user $user)
     {
-        if (! session()->has('referral_url')) {
+        if (!session()->has('referral_url')) {
             session()->put('referral_url', url()->previous());
         }
 
@@ -27,10 +27,10 @@ class UserController extends Controller
     {
         $validationArray = [
             'name' => 'required',
-            'email' => 'required|email|max:254|unique:users,email,'.$user->id,
+            'email' => 'required|email|max:254|unique:users,email,' . $user->id,
         ];
 
-        if (! empty($request->password) || ! empty($request->password_confirmation)) {
+        if (!empty($request->password) || !empty($request->password_confirmation)) {
             $validationArray['password'] = ['required', 'confirmed', Password::defaults()];
         }
 
@@ -41,7 +41,7 @@ class UserController extends Controller
             'email' => $request->email,
         ];
 
-        if (! empty($request->password)) {
+        if (!empty($request->password)) {
             $userFields['password'] = $request->password;
         }
 
@@ -50,6 +50,7 @@ class UserController extends Controller
         $referralUrl = session()->get('referral_url');
         session()->forget('referral_url');
 
-        return redirect($referralUrl);
+        return redirect($referralUrl)->with('success', 'Account updated successfully');
+        ;
     }
 }

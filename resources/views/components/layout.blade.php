@@ -90,10 +90,11 @@
     </div>
 
     <!-- Overlay -->
-    <div id="overlay" class="fixed h-0 inset-0 bg-black/50 z-9 transition-all duration-[250ms] opacity-0"></div>
+    <div id="overlay" class="fixed pointer-events-none inset-0 bg-black/50 z-9 opacity-0">
+    </div>
 
     <!-- Mobile Menu (Hidden by default) -->
-    <div class="sm:hidden pt-10 fixed flex flex-col h-screen top-0 left-[calc(-100vw+150px)] w-[calc(100vw-150px)] bg-gray-50 dark:bg-black/95 z-10 space-y-1 transition-all duration-[250ms] text-lg"
+    <div class="sm:hidden pt-10 fixed flex flex-col h-screen top-0 left-[calc(-100vw+150px)] w-[calc(100vw-150px)] bg-gray-50 dark:bg-gray-900 z-10 space-y-1 transition-all duration-[250ms] text-lg"
         id="mobile-menu">
         @auth
             @if (!Route::is('employer.profile') && !Auth::user()->is_admin)
@@ -120,6 +121,16 @@
 
             @endguest
     </div>
+
+    {{-- Flash message --}}
+    @if (session('success'))
+        <div id="success-message" class="fixed w-full text-center bottom-10 opacity-0">
+            <span class="bg-green-200 dark:bg-green-800 py-3 px-4 rounded-xl align-middle">
+                {{ session('success') }}
+            </span>
+        </div>
+    @endif
+
 </body>
 
 </html>

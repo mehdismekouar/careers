@@ -17,38 +17,37 @@
                 </x-forms.form>
             </section>
             @if (count($featured))
-            <section class="space-y-2 pt-10">
-                <x-section-heading>Featured Jobs</x-section-heading>
-                <div class="flex flex-wrap justify-center content-start items-stretch gap-6">
-                    @foreach ($featured as $job)
-                        <x-job-card :$job />
-                    @endforeach
-                </div>
-            </section>
+                <section class="space-y-2 pt-10">
+                    <x-section-heading>Featured Jobs</x-section-heading>
+                    <div class="flex flex-wrap justify-center content-start items-stretch gap-6">
+                        @foreach ($featured as $job)
+                            <x-job-card :$job />
+                        @endforeach
+                    </div>
+                </section>
             @endif
             @if (count($tags))
-            <section class="space-y-2">
-                <x-section-heading>Tags</x-section-heading>
-                <div class="space-x-1">
-                    @foreach ($tags as $tag)
-                        <x-tag href="/tags/{{ $tag->name }}">{{ $tag->name }}</x-tag>
-                    @endforeach
-                </div>
-            </section>
+                <section class="space-y-2">
+                    <x-section-heading>Tags</x-section-heading>
+                    <div class="space-x-1">
+                        @foreach ($tags as $tag)
+                            <x-tag href="/tags/{{ $tag->name }}">{{ $tag->name }}</x-tag>
+                        @endforeach
+                    </div>
+                </section>
             @endif
             @if (count($jobs))
-            <section class="space-y-2">
-                <x-section-heading>Recent Jobs</x-section-heading>
-                {{-- <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-stretch"> --}}
-                <div class="flex flex-wrap justify-center content-start items-stretch gap-6">
-                    @foreach ($jobs as $job)
-                        <x-job-card :$job />
-                    @endforeach
-                </div>
-                <div class="pt-5">
-                    {{ $jobs->onEachSide(6)->links() }}
-                </div>
-            </section>
+                <section class="space-y-2">
+                    <x-section-heading>Recent Jobs</x-section-heading>
+                    <div class="flex flex-wrap justify-center content-start items-stretch gap-6">
+                        @foreach ($jobs as $job)
+                            <x-job-card :$job />
+                        @endforeach
+                    </div>
+                    <div class="pt-5">
+                        {{ $jobs->onEachSide(6)->links() }}
+                    </div>
+                </section>
             @endif
         @else
             <section class="h-[calc(100vh-250px)] flex justify-center items-center">
