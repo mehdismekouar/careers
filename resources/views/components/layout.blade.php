@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia(
+                '(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.add('light');
+        }
+    </script>
     @vite(['resources/js/app.js'])
     <title>CAREERS</title>
 </head>
@@ -29,10 +37,10 @@
             </a>
 
             <!-- Dark mode switch menu -->
-            <div class="rounded-full bg-gray-100 dark:bg-gray-700 p-1.5 flex items-center cursor-pointer ml-5 mr-auto"
+            <a class="rounded-full bg-gray-100 dark:bg-gray-700 p-1.5 flex items-center cursor-pointer ml-5 mr-auto"
                 id="switch">
                 <svg id="light" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                    stroke-width="1.5" stroke="currentColor" class="hidden size-4">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                 </svg>
@@ -41,16 +49,18 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
                 </svg>
-
-            </div>
+            </a>
 
             <!-- Desktop menu -->
-            <div class="ml-2 inline-flex justify-end items-center gap-x-1 text-lg max-sm:hidden md:block">
+            <div class="ml-2 inline-flex justify-end items-center gap-x-1 text-lg max-sm:hidden">
                 @auth
                     @if (!Route::is('employer.profile') && !Auth::user()->is_admin)
                         <x-nav-link href="/employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
                     @elseif (!Route::is('employer.profile') && !Route::is('user.profile'))
                         <x-nav-link href="/user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
+                    @endif
+                    @if (!Route::is('employer.list') && Auth::user()->is_admin)
+                        <x-nav-link href="/employers">Companies</x-nav-link>
                     @endif
                     @if (!Route::is('employer.jobs') && !Auth::user()->is_admin)
                         <x-nav-link href="/jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-nav-link>
@@ -68,12 +78,11 @@
                         @if (!Route::is('register'))
                             <x-nav-link href="/register">Register</x-nav-link>
                         @endif
-
                     @endguest
             </div>
 
             <!-- Mobile Menu (Hamburger Icon) -->
-            <div class="sm:hidden flex items-center justify-end" id="mobile-menu-toggle">
+            <div class="sm:hidden flex items-center justify-end py-1.5" id="mobile-menu-toggle">
                 <button id="menu-toggle" class="flex items-center cursor-pointer">
                     <svg viewBox="0 0 20 20" fill="currentColor" class="menu w-6 h-6">
                         <path id="hamburger" fill-rule="evenodd"
@@ -90,7 +99,7 @@
     </div>
 
     <!-- Overlay -->
-    <div id="overlay" class="fixed pointer-events-none inset-0 bg-black/50 z-9 opacity-0">
+    <div id="overlay" class="fixed pointer-events-none inset-0 bg-black/50 z-9 opacity-0 transition-all duration-300">
     </div>
 
     <!-- Mobile Menu (Hidden by default) -->
@@ -101,6 +110,9 @@
                 <x-mobile-nav-link href="/employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
                 @elseif (!Route::is('employer.profile'))
                     <x-mobile-nav-link href="/user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
+            @endif
+            @if (!Route::is('employer.list') && Auth::user()->is_admin)
+                <x-mobile-nav-link href="/employers">Companies</x-nav-link>
             @endif
             @if (!Route::is('employer.jobs') && !Auth::user()->is_admin)
                 <x-mobile-nav-link href="/jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-nav-link>
@@ -124,13 +136,12 @@
 
     {{-- Flash message --}}
     @if (session('success'))
-        <div id="success-message" class="fixed w-full text-center bottom-10 opacity-0">
+        <div id="success-message" class="fixed w-full text-center top-10 opacity-0 transition-all duration-300">
             <span class="bg-green-200 dark:bg-green-800 py-3 px-4 rounded-xl align-middle">
                 {{ session('success') }}
             </span>
         </div>
     @endif
-
 </body>
 
 </html>

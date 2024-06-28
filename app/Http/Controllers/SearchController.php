@@ -14,8 +14,7 @@ class SearchController extends Controller
         ]);
 
         $jobs = Job::where('title', 'LIKE', '%' . $request['search'] . '%')
-            ->with('employer')
-            ->with('tags')
+            ->with('employer', 'tags')
             ->paginate(12);
 
         return view('results', ['jobs' => $jobs, 'title' => 'Search: ' . $request['search']]);

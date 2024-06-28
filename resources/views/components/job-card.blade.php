@@ -1,6 +1,6 @@
 @props(['job', 'featured' => false])
 
-<x-panel
+<x-job-panel
     class="relative flex-grow-0 flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.33%-1rem)] min-h-[250px]">
     @if ($featured)
         <span class="absolute rounded-xl w-3 h-3 -top-1 -right-1 bg-blue-600"></span>
@@ -26,7 +26,7 @@
     </div>
     <div class="text-center mt-2">
         @foreach ($job->tags as $tag)
-            <x-tag href="/tags/{{ $tag->name }}">{{ $tag->name }}</x-tag>
+            <x-tag href="/tags/{{ $tag->id }}">{{ $tag->name }}</x-tag>
         @endforeach
 
     </div>
@@ -43,4 +43,4 @@
             </div>
         </x-forms.form>
     @endcan
-</x-panel>
+</x-job-panel>

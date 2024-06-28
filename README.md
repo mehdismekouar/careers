@@ -11,13 +11,15 @@ I added the following features
 - Switch between dark and light mode
 - Mobile sliding menu responsiveness
 - Search validation
-- Admin user capabilities
-- Profile page with profile editing
-- My Jobs page filtering user specific listings
-- Edit/Delete capabilities for user owned listings
+- Admin user capabilities for all jobs and accounts
+- Companies page specific for admin
+- Profile page with editing feature
+- Jobs page for company specific listings
+- Edit/Delete capabilities for company owned listings
 - Top right dot mark on featured listings
 - Centering of last row listings
-- Pagination on home page and results page
+- Pagination on home/results/companies pages
+- Flash messages after create/edit/eelete a job/account
 
 <br />
 

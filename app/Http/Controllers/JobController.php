@@ -18,12 +18,12 @@ class JobController extends Controller
 
         return view('jobs.index', [
             'jobs' => Job::latest()
-                ->with(['employer', 'tags'])
+                ->with('employer', 'tags')
                 ->where(['featured' => false])
                 ->paginate(12),
 
             'featured' => Job::latest()
-                ->with(['employer', 'tags'])
+                ->with('employer', 'tags')
                 ->where(['featured' => true])
                 ->get(),
 
@@ -81,7 +81,7 @@ class JobController extends Controller
     public function edit(Job $job)
     {
         if (!session()->has('referral_url')) {
-            session()->put('referral_url', url()->previous());
+            session()->put('referral_url', url()->previous('/'));
         }
 
         return view('jobs.edit', [

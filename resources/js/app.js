@@ -2,70 +2,58 @@ import './bootstrap';
 import '../css/app.css';
 import.meta.glob('../images/**');
 
+const origin = document.documentElement;
+const light = document.getElementById('light');
+const dark = document.getElementById('dark');
+
+var mode;
+
+if (origin.classList.contains('dark')) {
+    mode = 'dark';
+    light.classList.remove('hidden');
+} else {
+    dark.classList.remove('hidden');
+    mode = 'light';
+}
 
 document.addEventListener('DOMContentLoaded', function () {
+    const switchButton = document.getElementById('switch');
     const successMessage = document.getElementById('success-message');
-
-    if (successMessage) {
-        setTimeout(function () {
-            successMessage.classList.add('transition-all', 'duration-300', 'opacity-100', 'bottom-16');
-        }, 1);
-
-        setTimeout(function () {
-            successMessage.classList.remove('opacity-100', 'bottom-16');
-            successMessage.classList.add('pointer-events-none');
-        }, 3000);
-    }
-
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
     const hamburger = document.getElementById('hamburger');
     const cross = document.getElementById('cross');
-    const container = document.getElementById('container');
     const overlay = document.getElementById('overlay');
-    const switchButton = document.getElementById('switch');
-    const light = document.getElementById('light');
-    const dark = document.getElementById('dark');
-
-    var mode;
-
-    if (!('theme' in localStorage) || localStorage.theme === 'light') {
-        mode = 'dark';
-    } else {
-        mode = 'light';
-    }
 
     function switchMode(currentMode) {
         if (currentMode == 'light') {
-            document.documentElement.classList.remove('light');
-            document.documentElement.classList.add('dark');
-            dark.classList.add('hidden');
-            light.classList.remove('hidden');
-
             localStorage.theme = 'dark';
             mode = 'dark';
         } else {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.classList.add('light');
-            dark.classList.remove('hidden');
-            light.classList.add('hidden');
-
             localStorage.theme = 'light';
             mode = 'light';
         }
-    }
 
-    switchMode(mode);
+        origin.classList.toggle('light');
+        origin.classList.toggle('dark');
+        dark.classList.toggle('hidden');
+        light.classList.toggle('hidden');
+    }
 
     switchButton.addEventListener('click', function () {
         switchMode(mode);
     });
 
-    var state = 'off';
+    if (successMessage) {
+        successMessage.classList.add('opacity-100', 'top-12');
 
-    setTimeout(function () {
-        overlay.classList.add('transition-all', 'duration-300');
-    }, 1);
+        setTimeout(function () {
+            successMessage.classList.remove('opacity-100', 'top-12');
+            successMessage.classList.add('pointer-events-none');
+        }, 2000);
+    }
+
+    var state = 'off';
 
     function changeState(state) {
         menu.classList.toggle('translate-x-[calc(100vw-150px)]');

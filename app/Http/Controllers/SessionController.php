@@ -26,14 +26,14 @@ class SessionController extends Controller
             'password' => 'required',
         ]);
 
-        if (! Auth::attempt($validated)) {
+        if (!Auth::attempt($validated)) {
             throw ValidationException::withMessages([
                 'email' => 'Credentials mismatch',
                 'password' => 'Credentials mismatch',
             ]);
         }
 
-        request()->session()->regenerate();
+        request()->session()->regenerate(true);
 
         return redirect()->intended('/');
     }
@@ -44,6 +44,8 @@ class SessionController extends Controller
     public function destroy()
     {
         Auth::logout();
+
+        request()->session()->regenerate(true);
 
         return redirect('/');
     }

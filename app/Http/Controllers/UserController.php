@@ -14,7 +14,7 @@ class UserController extends Controller
     public function edit(user $user)
     {
         if (!session()->has('referral_url')) {
-            session()->put('referral_url', url()->previous());
+            session()->put('referral_url', url()->previous('/'));
         }
 
         return view('auth.edit-user', ['user' => $user]);

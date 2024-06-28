@@ -19,12 +19,12 @@ class DatabaseSeeder extends Seeder
         $numbers = [
             'employers' => 20,
             'jobs' => 60,
-            'featured' => 4,
+            'featured' => 3,
             'tags' => 20,
             'relations' => 100,
         ];
 
-        if (! Storage::exists('logos')) {
+        if (!Storage::exists('logos')) {
             Storage::makeDirectory('logos');
         }
 

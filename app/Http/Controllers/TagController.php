@@ -10,8 +10,7 @@ class TagController extends Controller
     {
         return view('results', [
             'jobs' => $tag->jobs()
-                ->with('employer')
-                ->with('tags')
+                ->with('employer', 'tags')
                 ->paginate(12),
             'title' => 'Tag: ' . $tag->name
         ]);
