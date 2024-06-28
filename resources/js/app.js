@@ -45,7 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     if (successMessage) {
-        successMessage.classList.add('opacity-100', 'top-12');
+        setTimeout(function () {
+            successMessage.classList.add('opacity-100', 'top-12');
+        }, 150);
 
         setTimeout(function () {
             successMessage.classList.remove('opacity-100', 'top-12');
