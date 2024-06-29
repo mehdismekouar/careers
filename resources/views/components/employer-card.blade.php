@@ -6,7 +6,7 @@
     <div>
         <p class="font-bold text-lg">{{ $employer->name }}</p>
         <p class="text-gray-500 text-sm">{{ $employer->user->name }} <a href="mailto:{{ $employer->user->email }}"
-                class="font-bold">{{ $employer->user->email }}</strong></p>
+                class="font-bold">{{ $employer->user->email }}</a></p>
     </div>
 
     <div>

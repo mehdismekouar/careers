@@ -12,7 +12,7 @@ class TagController extends Controller
             'jobs' => $tag->jobs()
                 ->with('employer', 'tags')
                 ->paginate(12),
-            'title' => 'Tag: ' . $tag->name
+            'title' => 'Tag: '.$tag->name,
         ]);
     }
 }

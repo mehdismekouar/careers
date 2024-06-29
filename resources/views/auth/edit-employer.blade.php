@@ -7,7 +7,10 @@
         <x-forms.input label="Confirm password" name="password_confirmation" type="password" />
         <x-forms.divider />
         <x-forms.input label="Company name" name="employer" :value="$employer->name" />
-        <x-forms.input label="Company logo" name="logo" type="file" />
+        <div class="flex justify-stretch items-center">
+            <x-employer-logo :image="basename($employer->logo)" size="100" class="mr-4" />
+            <x-forms.input label="Company logo" name="logo" type="file" class="" />
+        </div>
         <x-forms.button>Update account</x-forms.button>
     </x-forms.form>
 </x-layout>

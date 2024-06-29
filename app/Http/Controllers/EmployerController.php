@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employer;
-use App\Models\User;
 use App\Models\Tag;
+use App\Models\User;
 use Arr;
 use Auth;
 use Illuminate\Http\Request;
@@ -30,7 +30,7 @@ class EmployerController extends Controller
             'jobs' => $employer->jobs()
                 ->with(['employer', 'tags'])
                 ->paginate(12),
-            'title' => 'Company: ' . $employer->name
+            'title' => 'Company: '.$employer->name,
         ]);
     }
 
@@ -45,10 +45,10 @@ class EmployerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|max:254|unique:users,email',
+            'name' => 'required|min:2|max:50',
+            'email' => 'required|email|max:70|unique:users,email',
             'password' => ['required', 'confirmed', Password::defaults()],
-            'employer' => 'required|min:5',
+            'employer' => 'required|min:2|max:50',
             'logo' => ['required', 'mimes:png,jpg,webp,svg', 'dimensions:min_width=100,min_height=100', 'max:2048'],
         ]);
 
@@ -64,27 +64,23 @@ class EmployerController extends Controller
         Auth::login($user);
 
         return redirect('/')->with('success', 'Account created successfully');
-        ;
+
     }
 
     public function edit(Employer $employer)
     {
-        if (!session()->has('referral_url')) {
-            session()->put('referral_url', url()->previous('/'));
-        }
-
         return view('auth.edit-employer', ['employer' => $employer]);
     }
 
     public function update(Request $request, Employer $employer)
     {
         $validationArray = [
-            'name' => 'required',
-            'email' => 'required|email|max:254|unique:users,email,' . $employer->user->id,
-            'employer' => 'required|min:5',
+            'name' => 'required|min:2|max:50',
+            'email' => 'required|email|max:70|unique:users,email,'.$employer->user->id,
+            'employer' => 'required|min:2|max:50',
         ];
 
-        if (!empty($request->password) || !empty($request->password_confirmation)) {
+        if (! empty($request->password) || ! empty($request->password_confirmation)) {
             $validationArray['password'] = ['required', 'confirmed', Password::defaults()];
         }
 
@@ -103,21 +99,18 @@ class EmployerController extends Controller
 
         if ($request->hasFile('logo')) {
             $logoPath = $request->logo->store('logos');
-            Storage::delete(['file', 'logos/' . $employer->logo]);
+            Storage::delete(['file', 'logos/'.$employer->logo]);
             $employerFields['logo'] = basename($logoPath);
         }
 
-        if (!empty($request->password)) {
+        if (! empty($request->password)) {
             $userFields['password'] = $request->password;
         }
 
         $employer->update($employerFields);
         $employer->user->update($userFields);
 
-        $referralUrl = session()->get('referral_url');
-        session()->forget('referral_url');
-
-        return redirect($referralUrl)->with('success', 'Account updated successfully');
+        return redirect(url()->previous())->with('success', 'Account updated successfully');
     }
 
     public function destroy(Employer $employer)

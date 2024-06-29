@@ -58,7 +58,7 @@ class JobController extends Controller
         $job = $request->user()->employer->jobs()->create(Arr::except($validated, 'tags'));
 
         $tags = request()->tags ?
-            array_unique(array_map('trim', array_filter(explode(',', request()->tags), fn($value) => !empty (trim($value))))) : false;
+            array_unique(array_map('trim', array_filter(explode(',', request()->tags), fn ($value) => ! empty(trim($value))))) : false;
 
         $job->tag($tags);
 
@@ -80,7 +80,7 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        if (!session()->has('referral_url')) {
+        if (! session()->has('referral_url')) {
             session()->put('referral_url', url()->previous('/'));
         }
 
@@ -110,7 +110,7 @@ class JobController extends Controller
         $job->detachTags();
 
         $tags = request()->tags ?
-            array_unique(array_map('trim', array_filter(explode(',', request()->tags), fn($value) => !empty (trim($value))))) : false;
+            array_unique(array_map('trim', array_filter(explode(',', request()->tags), fn ($value) => ! empty(trim($value))))) : false;
 
         $job->tag($tags);
 

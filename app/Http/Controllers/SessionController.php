@@ -26,7 +26,9 @@ class SessionController extends Controller
             'password' => 'required',
         ]);
 
-        if (!Auth::attempt($validated)) {
+        logger('remember: '.$request->remember);
+
+        if (! Auth::attempt($validated, (bool) $request->remember)) {
             throw ValidationException::withMessages([
                 'email' => 'Credentials mismatch',
                 'password' => 'Credentials mismatch',

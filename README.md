@@ -20,6 +20,8 @@ I added the following features
 - Centering of last row listings
 - Pagination on home/results/companies pages
 - Flash messages after create/edit/eelete a job/account
+- Password reset feature
+- Remember me feature
 
 <br />
 

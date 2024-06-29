@@ -3,13 +3,14 @@
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Models\Employer;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/storage/logos/{filename}', [FileController::class, 'getFile']);
 
@@ -72,6 +73,13 @@ Route::controller(SessionController::class)->middleware('guest')->group(function
 });
 
 Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth');
+
+Route::controller(PasswordController::class)->middleware('guest')->group(function () {
+    Route::get('/forgot-password', 'edit')->name('password.request');
+    Route::post('/forgot-password', 'check')->name('password.email');
+    Route::get('/reset-password/{token}', 'reset')->name('password.reset');
+    Route::post('/reset-password', 'update')->name('password.update');
+});
 
 Route::fallback(function () {
     return response()->view('no-results');

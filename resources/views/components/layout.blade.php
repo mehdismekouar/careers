@@ -36,23 +36,8 @@
                 <span class="ml-1 mt-0.5 text-xl tracking-wider">CAREERS</span>
             </a>
 
-            <!-- Dark mode switch menu -->
-            <a class="rounded-full bg-gray-100 dark:bg-gray-700 p-1.5 flex items-center cursor-pointer ml-5 mr-auto"
-                id="switch">
-                <svg id="light" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke-width="1.5" stroke="currentColor" class="hidden size-4">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-                </svg>
-                <svg id="dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke-width="1.5" stroke="currentColor" class="hidden size-4">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-                </svg>
-            </a>
-
             <!-- Desktop menu -->
-            <div class="ml-2 inline-flex justify-end items-center gap-x-1 text-lg max-sm:hidden">
+            <div class="ml-2 inline-flex justify-end items-center gap-x-1 text-lg max-sm:hidden grow">
                 @auth
                     @if (!Route::is('employer.profile') && !Auth::user()->is_admin)
                         <x-nav-link href="/employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
@@ -82,7 +67,7 @@
             </div>
 
             <!-- Mobile Menu (Hamburger Icon) -->
-            <div class="sm:hidden flex items-center justify-end py-1.5" id="mobile-menu-toggle">
+            <div class="max-sm:grow sm:hidden flex items-center justify-end py-1.5 ml-5" id="mobile-menu-toggle">
                 <button id="menu-toggle" class="flex items-center cursor-pointer">
                     <svg viewBox="0 0 20 20" fill="currentColor" class="menu w-6 h-6">
                         <path id="hamburger" fill-rule="evenodd"
@@ -93,6 +78,23 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
+            </div>
+
+            <!-- Dark mode switch menu -->
+            <div class="">
+                <a class="rounded-full bg-gray-100 dark:bg-gray-700 p-1.5 flex items-center cursor-pointer ml-5"
+                    id="switch">
+                    <svg id="light" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="hidden size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                    </svg>
+                    <svg id="dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="hidden size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                    </svg>
+                </a>
             </div>
         </nav>
         <main class="mt-10 max-w-[1200px] mx-auto">{{ $slot }}</main>

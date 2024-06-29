@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             successMessage.classList.remove('opacity-100', 'top-12');
             successMessage.classList.add('pointer-events-none');
-        }, 2000);
+        }, 3000);
     }
 
     var state = 'off';

@@ -13,10 +13,10 @@ class SearchController extends Controller
             'search' => 'required|min:3',
         ]);
 
-        $jobs = Job::where('title', 'LIKE', '%' . $request['search'] . '%')
+        $jobs = Job::where('title', 'LIKE', '%'.$request['search'].'%')
             ->with('employer', 'tags')
             ->paginate(12);
 
-        return view('results', ['jobs' => $jobs, 'title' => 'Search: ' . $request['search']]);
+        return view('results', ['jobs' => $jobs, 'title' => 'Search: '.$request['search']]);
     }
 }

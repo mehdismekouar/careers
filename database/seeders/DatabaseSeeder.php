@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Employer;
 use App\Models\Job;
-use App\Models\Tag;
 use App\Models\JobTag;
+use App\Models\Tag;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'relations' => 100,
         ];
 
-        if (!Storage::exists('logos')) {
+        if (! Storage::exists('logos')) {
             Storage::makeDirectory('logos');
         }
 
