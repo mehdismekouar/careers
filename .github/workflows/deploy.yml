@@ -26,8 +26,8 @@ jobs:
 
       - name: Deploy
         env:
-          HOSTINGER_USERNAME: ${{ secrets.SERVER_USERNAME }}
-          HOSTINGER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
         run: |
           ssh -o StrictHostKeyChecking=no -T $SERVER_USERNAME@$SERVER_IP << 'EOF'
             cd ~/careers
