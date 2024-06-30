@@ -17,22 +17,28 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.4.0
+
+      - name: Add SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
       - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: webfactory/ssh-agent@v0.6.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to Hostinger
+      - name: Deploy
         env:
           HOSTINGER_USERNAME: ${{ secrets.SERVER_USERNAME }}
           HOSTINGER_IP: ${{ secrets.SERVER_IP }}
         run: |
-          ssh -o StrictHostKeyChecking=no $SERVER_USERNAME@$SERVER_IP << 'EOF'
+          ssh -o StrictHostKeyChecking=no $HOSTINGER_USERNAME@$HOSTINGER_IP << 'EOF'
             cd ~/careers
             git pull origin master
-            composer2 install --no-interaction --prefer-dist --optimize-autoloader
+            composer install --no-interaction --prefer-dist --optimize-autoloader
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
