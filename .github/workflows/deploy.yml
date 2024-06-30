@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy script'
+        required: true
+        default: 'true'
 
 jobs:
   deploy:
