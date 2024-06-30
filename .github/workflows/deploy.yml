@@ -17,19 +17,17 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v2
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.6.0
+      - name: SSH Deploy to server
+        uses: appleboy/ssh-action@v0.1.7
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy
-        env:
-          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
-          SERVER_IP: ${{ secrets.SERVER_IP }}
-        run: |
-          ssh -o StrictHostKeyChecking=no -T $SERVER_USERNAME@$SERVER_IP << 'EOF'
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            set -e
             cd ~/careers
             git pull origin master
             composer install --no-interaction --prefer-dist --optimize-autoloader
@@ -38,4 +36,3 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             npm run build
             php artisan optimize:clear
-          EOF
