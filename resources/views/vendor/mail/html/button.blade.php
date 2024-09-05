@@ -1,5 +1,5 @@
 @props([
-    'url',
+    'url' => '#',
     'color' => 'primary',
     'align' => 'center',
 ])
