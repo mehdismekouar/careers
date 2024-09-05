@@ -29,7 +29,8 @@ jobs:
           script: |
             set -e
             cd ~/careers
-            git pull origin master
+            git fetch origin master
+            git reset --hard FETCH_HEAD
             composer2 install --no-interaction --prefer-dist --optimize-autoloader
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
             export NVM_DIR="$HOME/.nvm"
