@@ -19,7 +19,7 @@ I added the following features
 - Top right dot mark on featured listings
 - Centering of last row listings
 - Pagination on home/results/companies pages
-- Flash messages after create/edit/eelete a job/account
+- Flash messages after create/edit/delete a job/account
 - Password reset feature
 - Remember me feature
 
