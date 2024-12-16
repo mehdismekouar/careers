@@ -3,7 +3,7 @@
         @if (count($jobs) || count($featured))
             <section class="text-center">
                 <h1 class="text-4xl mt-10 mb-6">Search Jobs</h1>
-                <x-forms.form action="/search">
+                <x-forms.form action="./search">
                     <div class="relative">
                         <x-forms.input :label="false" name="search" placeholder="Search..." class="" />
                         <x-forms.small-button type="submit" class="absolute top-4 right-4 bg-transparent p-0 m-0"><svg

@@ -31,7 +31,7 @@
 
     </div>
     @can('view', $job->employer)
-        <x-forms.form id="delete-job-{{ $job->id }}" method="DELETE" action="/jobs/{{ $job->id }}">
+        <x-forms.form id="delete-job-{{ $job->id }}" method="DELETE" action="./jobs/{{ $job->id }}">
             <div class="mt-4 flex text-xs text-white">
                 <div
                     class="bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-150 rounded-l p-1 w-12">

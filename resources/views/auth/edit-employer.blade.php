@@ -1,6 +1,6 @@
 <x-layout>
     <x-page-heading>Profile</x-page-heading>
-    <x-forms.form method="PATCH" action="/employer/{{ $employer->id }}" enctype="multipart/form-data">
+    <x-forms.form method="PATCH" action="./employer/{{ $employer->id }}" enctype="multipart/form-data">
         <x-forms.input label="Your name" name="name" :value="$employer->user->name" />
         <x-forms.input label="Email" name="email" type="email" :value="$employer->user->email" />
         <x-forms.input label="Password" name="password" type="password" />

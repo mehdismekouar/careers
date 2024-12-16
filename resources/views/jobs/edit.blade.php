@@ -1,7 +1,7 @@
 <x-layout>
     <x-page-heading>Edit Job</x-page-heading>
 
-    <x-forms.form method="PATCH" action="/jobs/{{ $job->id }}">
+    <x-forms.form method="PATCH" action="./jobs/{{ $job->id }}">
         <x-forms.input label="Title" name="title" placeholder="" :value="$job->title" />
         <x-forms.input label="Salary (in USD)" name="salary" placeholder="" :value="$job->salary" />
         <x-forms.input label="Location" name="location" placeholder="" :value="$job->location" />

@@ -1,7 +1,7 @@
 <x-layout>
     <x-page-heading>New Job</x-page-heading>
 
-    <x-forms.form method="POST" action="/jobs">
+    <x-forms.form method="POST" action="./jobs">
         <x-forms.input label="Title" name="title" placeholder="" />
         <x-forms.input label="Salary (in USD)" name="salary" placeholder="" />
         <x-forms.input label="Location" name="location" placeholder="" />

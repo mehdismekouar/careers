@@ -24,7 +24,7 @@
 </head>
 
 <body class="dark:bg-black dark:text-white pt-4 pb-20 font-hanken">
-    <x-forms.form id="logout" method="POST" action="/logout" class="hidden" />
+    <x-forms.form id="logout" method="POST" action="./logout" class="hidden" />
     <div class="px-10" id="container">
         <nav class="flex items-center justify-between py-4 border-white/10">
             <a href="./" class="flex items-center font-semibold">

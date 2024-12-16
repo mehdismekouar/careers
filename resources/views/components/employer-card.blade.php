@@ -21,7 +21,7 @@
         @endif
     </div>
 
-    <x-forms.form id="delete-employer-{{ $employer->id }}" method="DELETE" action="/employer/{{ $employer->id }}">
+    <x-forms.form id="delete-employer-{{ $employer->id }}" method="DELETE" action="./employer/{{ $employer->id }}">
         <div class="mt-4 flex text-xs text-white">
             <div
                 class="bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-500 transition-colors duration-150 rounded-l p-1 w-12">
