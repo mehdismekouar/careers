@@ -27,7 +27,7 @@
     <x-forms.form id="logout" method="POST" action="/logout" class="hidden" />
     <div class="px-10" id="container">
         <nav class="flex items-center justify-between py-4 border-white/10">
-            <a href="/" class="flex items-center font-semibold">
+            <a href="./" class="flex items-center font-semibold">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-7">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -38,31 +38,31 @@
             </a>
 
             <!-- Desktop menu -->
-            <div class="ml-2 inline-flex justify-end items-center gap-x-1 text-lg max-sm:hidden grow">
+            <div class="ml-2 inline-flex justify-end items-center space-x-1 text-lg max-sm:hidden grow">
                 @auth
                     @if (!Route::is('employer.profile') && !Auth::user()->is_admin)
-                        <x-nav-link href="/employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
+                        <x-nav-link href="./employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
                     @elseif (!Route::is('employer.profile') && !Route::is('user.profile'))
-                        <x-nav-link href="/user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
+                        <x-nav-link href="./user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
                     @endif
                     @if (!Route::is('employer.list') && Auth::user()->is_admin)
-                        <x-nav-link href="/employers">Companies</x-nav-link>
+                        <x-nav-link href="./employers">Companies</x-nav-link>
                     @endif
                     @if (!Route::is('employer.jobs') && !Auth::user()->is_admin)
-                        <x-nav-link href="/jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-nav-link>
+                        <x-nav-link href="./jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-nav-link>
                     @endif
                     @if (!Route::is('jobs.create') && !Auth::user()->is_admin)
-                        <x-nav-link href="/jobs/create">New job</x-nav-link>
+                        <x-nav-link href="./jobs/create">New job</x-nav-link>
                     @endif
                     <x-forms.small-button class="hover:bg-gray-600 hover:text-white py-1 px-3 rounded-xl" :replace="true"
                         type="submit" form="logout">Logout</x-forms.button>
                     @endauth
                     @guest
                         @if (!Route::is('login'))
-                            <x-nav-link href="/login">Login</x-nav-link>
+                            <x-nav-link href="./login">Login</x-nav-link>
                         @endif
                         @if (!Route::is('register'))
-                            <x-nav-link href="/register">Register</x-nav-link>
+                            <x-nav-link href="./register">Register</x-nav-link>
                         @endif
                     @endguest
             </div>
@@ -110,28 +110,28 @@
         id="mobile-menu">
         @auth
             @if (!Route::is('employer.profile') && !Auth::user()->is_admin)
-                <x-mobile-nav-link href="/employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
+                <x-mobile-nav-link href="./employer/{{ Auth::user()->employer->id }}/edit">Profile</x-nav-link>
                 @elseif (!Route::is('employer.profile'))
-                    <x-mobile-nav-link href="/user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
+                    <x-mobile-nav-link href="./user/{{ Auth::user()->id }}/edit">Profile</x-nav-link>
             @endif
             @if (!Route::is('employer.list') && Auth::user()->is_admin)
-                <x-mobile-nav-link href="/employers">Companies</x-nav-link>
+                <x-mobile-nav-link href="./employers">Companies</x-nav-link>
             @endif
             @if (!Route::is('employer.jobs') && !Auth::user()->is_admin)
-                <x-mobile-nav-link href="/jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-nav-link>
+                <x-mobile-nav-link href="./jobs/employer/{{ Auth::user()->employer->id }}">My jobs</x-nav-link>
             @endif
             @if (!Route::is('jobs.create') && !Auth::user()->is_admin)
-                <x-mobile-nav-link href="/jobs/create">New job</x-nav-link>
+                <x-mobile-nav-link href="./jobs/create">New job</x-nav-link>
             @endif
             <x-forms.small-button class="hover:bg-gray-600 hover:text-white py-3 px-10 text-right w-full" :replace="true"
                 type="submit" form="logout">Logout</x-forms.button>
             @endauth
             @guest
                 @if (!Route::is('login'))
-                    <x-mobile-nav-link href="/login">Login</x-mobile-nav-link>
+                    <x-mobile-nav-link href="./login">Login</x-mobile-nav-link>
                 @endif
                 @if (!Route::is('register'))
-                    <x-mobile-nav-link href="/register">Register</x-mobile-nav-link>
+                    <x-mobile-nav-link href="./register">Register</x-mobile-nav-link>
                 @endif
 
             @endguest

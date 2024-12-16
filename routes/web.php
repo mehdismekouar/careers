@@ -13,7 +13,7 @@ use App\Models\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/storage/logos/{filename}', [FileController::class, 'getFile']);
+// Route::get('/storage/logos/{filename}', [FileController::class, 'getFile']);
 
 Route::get('/', [JobController::class, 'index']);
 

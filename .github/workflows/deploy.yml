@@ -28,12 +28,14 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             set -e
-            cd ~/careers
+            cd ~/domains/mehdimekouar.com/careers
             git fetch origin master
             git reset --hard FETCH_HEAD
             composer2 install --no-interaction --prefer-dist --optimize-autoloader
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            if [ ! -d "$HOME/.nvm" ]; then
+              curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+            fi
+            [ -s "$HOME/.nvm/nvm.sh" ] && \. "$HOME/.nvm/nvm.sh"
+            npm install
             npm run build
             php artisan cache:clear

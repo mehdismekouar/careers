@@ -20,7 +20,7 @@
                 <section class="space-y-2 pt-10">
                     <x-section-heading>Featured Jobs</x-section-heading>
                     <div
-                        class="flex flex-wrap @if (count($featured) > 2) justify-center @endif content-start items-stretch gap-6">
+                        class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         @foreach ($featured as $job)
                             <x-job-card :$job />
                         @endforeach
@@ -32,7 +32,7 @@
                     <x-section-heading>Tags</x-section-heading>
                     <div class="space-x-1">
                         @foreach ($tags as $tag)
-                            <x-tag href="/tags/{{ $tag->id }}">{{ $tag->name }}</x-tag>
+                            <x-tag href="./tags/{{ $tag->id }}">{{ $tag->name }}</x-tag>
                         @endforeach
                     </div>
                 </section>
@@ -41,7 +41,7 @@
                 <section class="space-y-2">
                     <x-section-heading>Recent Jobs</x-section-heading>
                     <div
-                        class="flex flex-wrap @if (count($jobs) > 2) justify-center @endif content-start items-stretch gap-6">
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($jobs as $job)
                             <x-job-card :$job />
                         @endforeach
