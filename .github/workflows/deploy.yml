@@ -28,7 +28,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             set -e
-            cd ~/domains/mehdimekouar.com/careers
+            cd ~/domains/careers.mehdimekouar.com/app
             git fetch origin master
             git reset --hard FETCH_HEAD
             composer2 install --no-interaction --prefer-dist --optimize-autoloader
