@@ -8,7 +8,6 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
-use App\Mail\PasswordNotification;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,13 +15,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/storage/logos/{filename}', [FileController::class, 'getFile']);
 
 Route::get('/', [JobController::class, 'index']);
-
-Route::get('/test', function () {
-    Mail::to('mehdi.mekouar@gmail.com')->send(new PasswordNotification);
-
-    return 'Done';
-});
-
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/user/{user}/edit', 'edit')
